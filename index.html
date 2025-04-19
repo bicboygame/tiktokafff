@@ -1,42 +1,52 @@
 <!DOCTYPE html>
 <html lang="vi">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Đang mở TikTok...</title>
-    <script>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mở TikTok App</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding-top: 100px;
+      background-color: #fefefe;
+    }
+    h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    button {
+      font-size: 18px;
+      padding: 12px 24px;
+      background-color: #ff0050;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #e00048;
+    }
+  </style>
+</head>
+<body>
+  <h1>Nhấn nút bên dưới để mở sản phẩm trên TikTok</h1>
+  <button onclick="openTikTok()">Mở TikTok App</button>
+
+  <script>
+    function openTikTok() {
       const androidIntentLink =
         "intent://www.tiktok.com/view/product/1730266890996386338?share_app_id=1180&sec_user_id=MS4wLjABAAAAFRkzSyHC65G9-K26j4TmZUQhJNb_ENnC36YdP3URQqpAiAAFnJ92pwqqU5YZWuaW&share_iid=7492597872099297032#Intent;scheme=https;package=com.zhiliaoapp.musically;end";
 
-      const fallbackWebLink =
+      const iosLink =
         "https://www.tiktok.com/view/product/1730266890996386338?share_app_id=1180&sec_user_id=MS4wLjABAAAAFRkzSyHC65G9-K26j4TmZUQhJNb_ENnC36YdP3URQqpAiAAFnJ92pwqqU5YZWuaW&share_iid=7492597872099297032";
 
-      function isAndroid() {
-        return /Android/i.test(navigator.userAgent);
+      if (/Android/i.test(navigator.userAgent)) {
+        window.location.href = androidIntentLink;
+      } else {
+        window.location.href = iosLink;
       }
-
-      function isFacebookApp() {
-        return /FBAN|FBAV/i.test(navigator.userAgent);
-      }
-
-      function isMessengerApp() {
-        return /Messenger/i.test(navigator.userAgent);
-      }
-
-      window.onload = function () {
-        if (isFacebookApp() || isMessengerApp()) {
-          // Trong Facebook/Messenger app → dùng web fallback (do bị chặn)
-          window.location.href = fallbackWebLink;
-        } else if (isAndroid()) {
-          // Android ngoài Facebook → mở app bằng intent
-          window.location.href = androidIntentLink;
-        } else {
-          // iOS hoặc trình duyệt khác → dùng link thường
-          window.location.href = fallbackWebLink;
-        }
-      };
-    </script>
-  </head>
-  <body>
-    <p>Đang mở sản phẩm trên TikTok...</p>
-  </body>
+    }
+  </script>
+</body>
 </html>
